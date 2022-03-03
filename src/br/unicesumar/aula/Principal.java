@@ -91,6 +91,8 @@ public class Principal {
 	    	System.out.printf("Valor total da reserva sem desconto: R$ %.2f\n", totalSD);
 	    }
 	    System.out.printf("Valor total da reserva: R$ %.2f",total);
+	    
+	    System.out.println("Teste GitHub !");
 		
 		
 		sc.close();
