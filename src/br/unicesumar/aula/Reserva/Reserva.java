@@ -53,13 +53,16 @@ public class Reserva {
 	}
 
 
-	public boolean verificarCapacidade(int quantidadePessoas, int capacidade) {
-		if (quantidadePessoas <= capacidade) {
+	public boolean verificarCapacidade(int quantidadePessoas, int capacidade, int menor2anos) {
+		int maior2anos = quantidadePessoas - menor2anos;
+		
+		if (maior2anos <= capacidade) {
 			System.out.println("Reserva finalizada com sucesso!");
-			System.out.println("");	
+			System.out.println();	
 			return true;
 		} else {
-			System.out.println("Numero maior que permitido.");
+			System.out.println("Numero maior que permitido!!!");
+			System.out.println();
 			return false;
 		}
 		

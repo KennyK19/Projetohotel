@@ -15,8 +15,11 @@ public class Principal {
 		Scanner sc = new Scanner(System.in);
 		Reserva reserva = new Reserva();
 		
-		List<Hospede> hospede = new ArrayList<>();
+		List<Hospede> hospedes = new ArrayList<>();
 		Suite suite = new Suite();
+		int menor2anos; //instanciado somente para uso no cadastro da reserva
+		
+		//cadastro das informações da suite
 		
 		System.out.println("|----------CADASTRO DE SUÍTE----------|");
 		
@@ -31,52 +34,62 @@ public class Principal {
 		System.out.println("Informe o valor da diaria:");
 		suite.setValorDiaria(sc.nextDouble());
 		
+		//cadastro das informações da suite
+		
 		System.out.println("|----------CADASTRO DA RESERVA----------|");
 		
 		System.out.println("Informe a quantidade de dias:");
 		reserva.setQuantidadeDias(sc.nextInt());
 		do {
+			//verifica quantidade de pessoas com capacidade de suite
 			System.out.println("Informe a quantidade de pessoas:");
 			reserva.setQuantidadePessoas(sc.nextInt());
 			
-		}while(!reserva.verificarCapacidade(reserva.getQuantidadePessoas(), suite.getCapacidade()));
+			//verifica quantidade de pessoas com menos de 2 anos
+			System.out.println("Quantas pessoas são menores que 2 anos ?");
+			menor2anos = sc.nextInt();
+			
+		}while(!reserva.verificarCapacidade(reserva.getQuantidadePessoas(), suite.getCapacidade(), menor2anos));
+		
+		//adiciona a suite para a reserva do cliente
 		reserva.setSuite(suite);
 		
 		System.out.println("|----------CADASTRO DO HÓSPEDE----------|");
 		
-		int contador = 0;
-		int contadorcdg = 0;
+		int contadorAcima2Anos = 0;
+		int contadorCodigo = 0;
 		do{
-			   contadorcdg++;
-			   Hospede hpd = new Hospede();
-			   hpd.setCodigo(contadorcdg);
-			   System.out.println("Codigo do hospede: " + hpd.getCodigo());
+			   contadorCodigo++;
+			   Hospede hospede = new Hospede();
+			   hospede.setCodigo(contadorCodigo);
+			   System.out.println("Codigo do hospede: " + hospede.getCodigo());
 			   sc.nextLine();
 			   
 			   System.out.println("Nome: ");
-			   hpd.setNome(sc.nextLine());
+			   hospede.setNome(sc.nextLine());
 			   
 			   System.out.println("Idade: ");
-			   hpd.setIdade(sc.nextInt());
+			   hospede.setIdade(sc.nextInt());
 			   sc.nextLine();
 			   
 			   System.out.println("Endereço: ");
-			   hpd.setEndereco(sc.nextLine());
+			   hospede.setEndereco(sc.nextLine());
 			   System.out.println("------------------------------");
 			   System.out.println("Aperte enter para continuar!");
 			   System.out.println("------------------------------");
-			   hospede.add(hpd);
+			   hospedes.add(hospede);
 			   
-			   if (hpd.getIdade() > 2) {
-				   contador++;
-			   }
-			}while (contador < suite.getCapacidade());
+			   contadorAcima2Anos++;
+		
+	 	    } while (contadorAcima2Anos < reserva.getQuantidadePessoas());
+
 		
 		System.out.println("");
 		System.out.println("Informações da Reserva");
 		System.out.println("");
-	    for (Hospede hospedes: hospede) {
-	    	System.out.println(hospedes);
+		
+	    for (Hospede hospede: hospedes) {
+	    	System.out.println(hospede);
 	    }
 	    System.out.println("");
 	    System.out.println("Informações da Suíte");
@@ -87,14 +100,12 @@ public class Principal {
 	    System.out.printf("Valor da diaria: R$ %.2f", suite.getValorDiaria());
 	    System.out.println("");
 	    if (reserva.getQuantidadeDias() > 7) {
-	    	double totalSD = suite.getValorDiaria() * reserva.getQuantidadeDias();
-	    	System.out.printf("Valor total da reserva sem desconto: R$ %.2f\n", totalSD);
+	    	double totalsaldo = suite.getValorDiaria() * reserva.getQuantidadeDias();
+	    	System.out.printf("Valor total da reserva sem desconto: R$ %.2f\n", totalsaldo);
 	    }
 	    System.out.printf("Valor total da reserva: R$ %.2f",total);
 	    
-	    System.out.println("Teste GitHub !");
-		
-		
+			
 		sc.close();
 	}
 
